@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "HBuMHtRaT6GXq4bHqazzPvssmrLnTVJddcG7alYvkR8y433nl2wfBd2fz473+bHjASeBqwkLqrI6Qocmj6tAaQ==",
+  "success": true,
+  "projectFilePath": "F:\\PROJECT\\BackgroundTaskNet6\\BackgroundTaskNet6\\BackgroundTaskNet6\\BackgroundTaskNet6.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DEV\\.nuget\\packages\\hangfire.aspnetcore\\1.7.28\\hangfire.aspnetcore.1.7.28.nupkg.sha512",
+    "C:\\Users\\DEV\\.nuget\\packages\\hangfire.core\\1.7.28\\hangfire.core.1.7.28.nupkg.sha512",
+    "C:\\Users\\DEV\\.nuget\\packages\\hangfire.memorystorage\\1.7.0\\hangfire.memorystorage.1.7.0.nupkg.sha512",
+    "C:\\Users\\DEV\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
