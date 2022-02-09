@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
 builder.Services.AddHangfire(configuration => configuration
         .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
         .UseSimpleAssemblyNameTypeSerializer()
@@ -41,39 +43,30 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseHangfireDashboard();
+//app.UseHangfireDashboard();
 
 
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+     
 
+    endpoints.MapAreaControllerRoute(
+        name: "Api",
+        areaName: "Api",
+        pattern: "api/{controller=Home}/{action=Index}/{id?}");
+     
 
-//    endpoints.MapAreaControllerRoute(
-//         name: "Admin",
-//         areaName: "AdminCP",
-//         pattern: "admincp/{controller=Home}/{action=Index}/{id?}");
-
-//    endpoints.MapAreaControllerRoute(
-//        name: "Api",
-//        areaName: "Api",
-//        pattern: "api/{controller=Home}/{action=Index}/{id?}");
-
-//    endpoints.MapAreaControllerRoute(
-//        name: "en",
-//        areaName: "en",
-//        pattern: "en/{controller=Home}/{action=Index}/{id?}");
-
-//    endpoints.MapRazorPages();
-//    //endpoints.MapHangfireDashboard();
-//});
+    endpoints.MapRazorPages();
+    endpoints.MapHangfireDashboard();
+});
 
 
 //var backgroundJobs = new BackgroundJobClient(); 
