@@ -72,8 +72,14 @@ app.UseEndpoints(endpoints =>
 //var backgroundJobs = new BackgroundJobClient(); 
 //backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!")); 
 //BackgroundJob.Schedule(() => Console.WriteLine("Schedule..."), TimeSpan.FromSeconds(5));
-Console.Clear();
+
+
 var recurringJob = new RecurringJobManager();
-recurringJob.AddOrUpdate("Run Recurring Job",()=> DemoJobs.Print(), "* * * * *");
-recurringJob.AddOrUpdate("Run Recurring Job 2", () => DemoJobs.Print2(), "0,2,5,7,10 * * * *");
+//Cron S M H Dayofmonth Month Dayofweek Year
+
+//Exe: run After 15 second
+recurringJob.AddOrUpdate("Run Recurring Job",()=> DemoJobs.Print(), "0/15 * * * * *");
+
+//Exe: Minute 0,5,10,15,30,45 Run
+recurringJob.AddOrUpdate("Run Recurring Job 2", () => DemoJobs.Print2(), "0,5,10,15,30,47 * * * *");
 app.Run();
