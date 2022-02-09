@@ -12,6 +12,7 @@ builder.Services.AddHangfire(configuration => configuration
         .UseSimpleAssemblyNameTypeSerializer()
         .UseRecommendedSerializerSettings() 
         .UseMemoryStorage()
+
         //.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
         //{
         //    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
@@ -23,8 +24,7 @@ builder.Services.AddHangfire(configuration => configuration
         );
 
 // Add the processing server as IHostedService
-builder.Services.AddHangfireServer();
-
+builder.Services.AddHangfireServer(); 
 
 var app = builder.Build();
 
@@ -41,15 +41,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthorization(); 
 
-//app.UseHangfireDashboard();
-
-
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseAuthentication(); // Authentication - first
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[] { new HangFireAuthorizationFilter() }
+});
 
 app.UseEndpoints(endpoints =>
 {
@@ -68,6 +66,8 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHangfireDashboard();
 });
 
+//var dashboardOptions = new DashboardOptions { IgnoreAntiforgeryToken = true  }; 
+//app.UseHangfireDashboard("/hangfire", dashboardOptions);
 
 //var backgroundJobs = new BackgroundJobClient(); 
 //backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!")); 
@@ -79,7 +79,6 @@ var recurringJob = new RecurringJobManager();
 
 //Exe: run After 15 second
 recurringJob.AddOrUpdate("Run Recurring Job",()=> DemoJobs.Print(), "0/15 * * * * *");
-
 //Exe: Minute 0,5,10,15,30,45 Run
 recurringJob.AddOrUpdate("Run Recurring Job 2", () => DemoJobs.Print2(), "0,5,10,15,30,47 * * * *");
 app.Run();
